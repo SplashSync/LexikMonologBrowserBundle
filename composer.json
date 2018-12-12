@@ -27,7 +27,6 @@
     
     "require": {
         "php":                                      "^7.0",
-        "symfony/symfony":                          ">3.4",
         "symfony/monolog-bundle":                   "*",
         "doctrine/doctrine-bundle":                 ">=1.6",
         "sonata-project/admin-bundle":              ">=3.0"
