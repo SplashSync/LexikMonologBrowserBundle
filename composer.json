@@ -2,7 +2,7 @@
     "name": "splash/sonata-admin-monolog-bundle",
     "type": "symfony-bundle",
     
-    "description": "This Bundle is inspired from LexikMonologBrowserBundle, it provides a Doctrine DBAL handler for Monolog and Sonata Admin.",
+    "description": "Provide a Doctrine DBAL handler for Monolog with Sonata Admin Implementation. This Bundle is inspired from LexikMonologBrowserBundle.",
     "keywords": ["Symfony3", "Symfony4", "bundle", "monolog", "logger", "doctrine", "sonata", "sonata-project", "admin"],
     "homepage": "https://github.com/splash/SonataAdminMonologBundle",
     "license": "MIT",
@@ -26,15 +26,46 @@
     ],
     
     "require": {
-        "php":                              "^7.0",
-        "symfony/symfony":                  ">3.4",
-        "symfony/monolog-bundle":           "*",
-        "doctrine/doctrine-bundle":         ">=1.6",
-        "sonata-project/admin-bundle":      ">=3.0"
+        "php":                                      "^7.0",
+        "symfony/symfony":                          ">3.4",
+        "symfony/monolog-bundle":                   "*",
+        "doctrine/doctrine-bundle":                 ">=1.6",
+        "sonata-project/admin-bundle":              ">=3.0"
     },
+    
     "require-dev": {
-        "symfony/profiler-pack":            "^1.0",
-        "symfony/var-dumper":               "*"        
+        "symfony/symfony":                              "~4.0",
+        "symfony/monolog-bundle":                       "*",
+        "symfony/phpunit-bridge":                       "*",
+        
+        "sonata-project/user-bundle":                   ">3.0",
+        "symfony/profiler-pack":                        "*",
+        "symfony/console":                              "*",        
+        "symfony/var-dumper":                           "*", 
+        
+        "phpunit/phpunit":                              ">6",
+        
+        "doctrine/orm":                                 "^2.4",
+        "doctrine/doctrine-bundle":                     "^1.9",
+        
+        "composer/composer":                            "^1.5",
+        "j13k/yaml-lint":                               "^1.1",
+        "jakub-onderka/php-parallel-lint":              "^1.0",
+        "phpmd/phpmd":                                  "^2.6",
+        "phpro/grumphp":                                "^0.14.0",
+        "sclable/xml-lint":                             "^0.2.4",
+        "sebastian/phpcpd":                             ">3.0",
+        "seld/jsonlint":                                "^1.7",
+        "sensiolabs/security-checker":                  "*",
+        "squizlabs/php_codesniffer":                    "^3.2",
+        "escapestudios/symfony2-coding-standard":       "^3.4",
+        "friendsofphp/php-cs-fixer":                    "*",        
+        
+        "phpstan/phpstan-shim":                         "^0.10",
+        "phpstan/phpstan-doctrine":                     "^0.10",
+        "phpstan/phpstan-phpunit":                      "^0.10",
+        "phpstan/phpstan-symfony":                      "^0.10"        
+        
     },
     
     "config": {
@@ -53,40 +84,8 @@
     
     "autoload-dev": {
         "psr-4": {
-            "Splash\\SonataAdminMonologBundle\\\\Tests\\": "tests/"
+            "Splash\\SonataAdminMonologBundle\\Tests\\": "tests/"
         }
-    },
+    }
     
-    "replace": {
-        "paragonie/random_compat": "*",
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
-    },
-    
-    "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
-    },
-    
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    
-    "extra": {
-        "symfony": {
-            "allow-contrib": true,
-            "require": "4.1.*"
-        }
-    }    
 }
