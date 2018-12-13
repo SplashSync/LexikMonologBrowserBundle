@@ -57,7 +57,6 @@
         "phpunit/phpunit":                              ">6",
         
         "doctrine/orm":                                 "^2.4",
-        "doctrine/doctrine-bundle":                     "^1.9",
         
         "composer/composer":                            "^1.5",
         "j13k/yaml-lint":                               "^1.1",
