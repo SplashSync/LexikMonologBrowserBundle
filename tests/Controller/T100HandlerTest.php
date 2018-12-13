@@ -6,13 +6,13 @@ use Monolog\Logger;
 use Symfony\Component\Process\Process;
 
 /**
- * Verify Database Logs Handler 
+ * Verify Database Logs Handler
  */
 class T100HandlerTest extends AbstractTestClass
 {
     /**
      * Verify Log handler from Controller
-     */    
+     */
     public function testLogFromController()
     {
         //====================================================================//
@@ -29,7 +29,7 @@ class T100HandlerTest extends AbstractTestClass
     
     /**
      * Verify Log handler from Symfony Console
-     */    
+     */
     public function testLogFromConsole()
     {
         //====================================================================//
@@ -40,17 +40,17 @@ class T100HandlerTest extends AbstractTestClass
         $process = Process::fromShellCommandline("php tests/console this:is:wrong --env=test");
         //====================================================================//
         // Clean Working Dir
-        $WorkingDirectory   =   $process->getWorkingDirectory();
-        if (strrpos($WorkingDirectory, "/app") == (strlen($WorkingDirectory) - 4) ){
-            $process->setWorkingDirectory(substr($WorkingDirectory, 0, strlen($WorkingDirectory) - 4));
-        }     
+        $workingDirectory   =   $process->getWorkingDirectory();
+        if (strrpos($workingDirectory, "/app") == (strlen($workingDirectory) - 4)) {
+            $process->setWorkingDirectory(substr($workingDirectory, 0, strlen($workingDirectory) - 4));
+        }
         //====================================================================//
         // Run Process
         $process->run();
         //====================================================================//
         // Fail => Display Process Outputs
-        if ( !$process->isSuccessful() ) {
-            echo $process->getCommandLine() . PHP_EOL;
+        if (!$process->isSuccessful()) {
+            echo $process->getCommandLine().PHP_EOL;
             echo $process->getOutput();
         }
         $this->assertFalse($process->isSuccessful());
@@ -58,16 +58,15 @@ class T100HandlerTest extends AbstractTestClass
         //====================================================================//
         // Verify
         $this->verifyFirst(Logger::ERROR, "ERROR", "console");
-        
     }
     
     /**
      * Verify Log handler from Logger
-     * 
+     *
      * @param string $levelName
-     * 
+     *
      * @dataProvider loggerTypesDataProvider
-     */    
+     */
     public function testLogFromLogger(string $levelName)
     {
         //====================================================================//
@@ -81,7 +80,7 @@ class T100HandlerTest extends AbstractTestClass
 
         //====================================================================//
         // Add Log Item via Logger
-        $this->Logger->addRecord($level, "This is a test " . $levelName);
+        $this->logger->addRecord($level, "This is a test ".$levelName);
         
         //====================================================================//
         // Verify
@@ -90,7 +89,9 @@ class T100HandlerTest extends AbstractTestClass
     
     /**
      * Data Provider for Logger
-     */    
+     *
+     * @return array
+     */
     public function loggerTypesDataProvider()
     {
         return array(
@@ -101,5 +102,4 @@ class T100HandlerTest extends AbstractTestClass
             array("ALERT"),
         );
     }
-    
 }

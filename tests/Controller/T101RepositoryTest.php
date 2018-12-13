@@ -5,13 +5,13 @@ namespace Splash\SonataAdminMonologBundle\Tests\Controller;
 use Monolog\Logger;
 
 /**
- * Verify Database Logs Handler 
+ * Verify Database Logs Handler
  */
 class T101RepositoryTest extends AbstractTestClass
 {
     /**
      * Verify Logs Repository Levels mapper
-     */    
+     */
     public function testLogsLevels()
     {
         //====================================================================//
@@ -19,11 +19,11 @@ class T101RepositoryTest extends AbstractTestClass
         $this->cleanup();
         //====================================================================//
         // Add Log Item via Logger
-        $this->Logger->addRecord(Logger::WARNING, "This is a test !");
-        $this->Logger->addRecord(Logger::ERROR, "This is a test !");
-        $this->Logger->addRecord(Logger::CRITICAL, "This is a test !");
-        $this->Logger->addRecord(Logger::ALERT, "This is a test !");
-        $this->Logger->addRecord(Logger::NOTICE, "This is a test !");
+        $this->logger->addRecord(Logger::WARNING, "This is a test !");
+        $this->logger->addRecord(Logger::ERROR, "This is a test !");
+        $this->logger->addRecord(Logger::CRITICAL, "This is a test !");
+        $this->logger->addRecord(Logger::ALERT, "This is a test !");
+        $this->logger->addRecord(Logger::NOTICE, "This is a test !");
         
         //====================================================================//
         // Load Levels
@@ -39,5 +39,4 @@ class T101RepositoryTest extends AbstractTestClass
             "NOTICE" => Logger::NOTICE,
         ), $levels);
     }
-    
 }

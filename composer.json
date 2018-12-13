@@ -34,8 +34,8 @@
     "require": {
         "php":                                      "^7.0",
         "monolog/monolog":                          "~1.24",
-        "doctrine/doctrine-bundle":                 ">=1.6",
-        "sonata-project/admin-bundle":              ">=3.0"
+        "doctrine/doctrine-bundle":                 "~1.6",
+        "sonata-project/admin-bundle":              "~3.0"
     },
     
     "autoload-dev": {
@@ -46,9 +46,9 @@
     },
     
     "require-dev": {
-        "symfony/symfony":                              "~4.0",
-        "symfony/monolog-bundle":                       "*",
-        "symfony/phpunit-bridge":                       "*",
+        "symfony/symfony":                              ">3.4",
+        "symfony/monolog-bundle":                       ">3.4",
+        "symfony/phpunit-bridge":                       ">3.4",
         
         "sonata-project/user-bundle":                   ">3.0",
         "symfony/console":                              "*",        

@@ -1,23 +1,22 @@
 <?php
 
-/**
- * This file is part of SplashSync Project.
+/*
+ *  This file is part of SplashSync Project.
  *
- * Copyright (C) Splash Sync <www.splashsync.com>
+ *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Bernard Paquier <contact@splashsync.com>
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace Splash\SonataAdminMonologBundle\Event;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Splash\SonataAdminMonologBundle\Entity\Log;
 use Splash\SonataAdminMonologBundle\Model\AbstractBaseLog;
 use Splash\SonataAdminMonologBundle\Repository\LogRepository;
 
@@ -35,22 +34,26 @@ class LogHydrator
 
     /**
      * @abstract    This Listner is Called Each Time an Entity is Loaded by Doctrine
+     *
+     * @param LifecycleEventArgs $eventArgs
      */
     public function postLoad(LifecycleEventArgs $eventArgs)
     {
         //====================================================================//
         // Filter On Logs Entities
-        if (!$eventArgs->getEntity() instanceof AbstractBaseLog) {
+        if (!$eventArgs->getEntity() instanceof Log) {
             return;
         }
         //====================================================================//
         // Connect to repository
-        if (!$this->repository) {
-            $this->repository = $eventArgs->getEntityManager()->getRepository('SplashSonataAdminMonologBundle:Log');
+        if (empty($this->repository)) {
+            /** @var LogRepository $respository */
+            $respository = $eventArgs->getEntityManager()->getRepository('SplashSonataAdminMonologBundle:Log');
+            $this->repository = $respository;
         }
         //====================================================================//
         // Fetch Similar Logs
-        $Log = $eventArgs->getEntity();
-        $Log->setSimilar($this->repository->getSimilarLogs($Log));
+        $log = $eventArgs->getEntity();
+        $log->setSimilar($this->repository->getSimilarLogs($log));
     }
 }

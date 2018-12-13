@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\SonataAdminMonologBundle\Handler;
 
 use Doctrine\DBAL\Connection;
@@ -64,6 +77,13 @@ class DoctrineDBALHandler extends AbstractProcessingHandler
         return new NormalizerFormatter();
     }
 
+    /**
+     * Convert String to Monolog Level
+     *
+     * @param int|string $level
+     *
+     * @return int
+     */
     private function levelToMonologConst($level)
     {
         return is_int($level) ? $level : constant('Monolog\Logger::'.strtoupper($level));

@@ -20,22 +20,22 @@ abstract class AbstractTestClass extends WebTestCase
     /**
      * @var Client
      */
-    protected $client       =   Null;
+    protected $client;
     
     /**
      * @var EntityManagerInterface
      */
-    protected $entityManager; 
+    protected $entityManager;
 
     /**
      * @var LogRepository
      */
-    protected $repository; 
+    protected $repository;
     
     /**
      * @var Logger
      */
-    protected $Logger; 
+    protected $logger;
     
     
     /**
@@ -44,16 +44,24 @@ abstract class AbstractTestClass extends WebTestCase
     protected function setUp()
     {
         $this->client = static::createClient();
+        $container = $this->client->getContainer();
+        if (is_null($container)) {
+            return;
+        }
         //====================================================================//
         // Link to entity manager Services
-        $this->entityManager  = $this->client->getContainer()->get('doctrine')->getManager();  
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager  = $container->get('doctrine')->getManager();
+        $this->entityManager  = $entityManager;
         //====================================================================//
         // Link to Logs Repository
-        $this->repository  = $this->client->getContainer()->get('doctrine')->getRepository("SplashSonataAdminMonologBundle:Log");  
+        /** @var LogRepository $repository */
+        $repository  = $container->get('doctrine')->getRepository("SplashSonataAdminMonologBundle:Log");
+        $this->repository  = $repository;
         //====================================================================//
         // Connect to Logger
-        $this->Logger =   $this->client->getContainer()->get('monolog.logger.phpunit');        
-    }     
+        $this->logger =   $container->get('monolog.logger.phpunit');
+    }
     
     /**
      * @abstract    Dummy Test
@@ -61,7 +69,7 @@ abstract class AbstractTestClass extends WebTestCase
     public function testPhpUnitIsWorking()
     {
         $this->assertTrue(true);
-    }     
+    }
     
     /**
      * Delete All Logs Entities
@@ -70,16 +78,15 @@ abstract class AbstractTestClass extends WebTestCase
     {
         $this->repository->removeAll();
         $this->assertEmpty($this->repository->findAll());
-    } 
+    }
 
     /**
      * Verify a First Log item
-     * 
-     * @param Log $log
-     * @param int $level
+     *
+     * @param int    $level
      * @param string $name
      * @param string $channel
-     * 
+     *
      * @return Log
      */
     public function verifyFirst(int $level = null, string $name = null, string $channel = null)
@@ -94,14 +101,14 @@ abstract class AbstractTestClass extends WebTestCase
         $this->verify($log, $level, $name, $channel);
         
         return $log;
-    }     
+    }
     
     
     /**
      * Verify a Log item
-     * 
-     * @param Log $log
-     * @param int $level
+     *
+     * @param Log    $log
+     * @param int    $level
      * @param string $name
      * @param string $channel
      */
@@ -110,15 +117,14 @@ abstract class AbstractTestClass extends WebTestCase
         $this->assertNotEmpty($log->getDateTime());
         $this->assertNotEmpty($log->getFormated());
         
-        if(!is_null($level)) {
+        if (!is_null($level)) {
             $this->assertSame($level, $log->getLevel());
         }
-        if(!is_null($name)) {
+        if (!is_null($name)) {
             $this->assertSame($name, $log->getLevelName());
         }
-        if(!is_null($channel)) {
+        if (!is_null($channel)) {
             $this->assertSame($channel, $log->getChannel());
         }
-    }     
-    
+    }
 }

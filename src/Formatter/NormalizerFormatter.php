@@ -1,42 +1,54 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\SonataAdminMonologBundle\Formatter;
 
 use Monolog\Formatter\HtmlFormatter;
 
+/**
+ * Database Logger Formater : Convert monolog record for Database Handler
+ */
 class NormalizerFormatter extends HtmlFormatter
 {
-    
     /**
      * Formats a log record.
      *
-     * @param  array  $record A record to format
+     * @param  array $record A record to format
+     *
      * @return string The formatted record
      */
     public function format(array $record)
     {
         //====================================================================//
-        // Format Record to Html             
+        // Format Record to Html
         $record['formated'] = $this->getHtml($record);
         
         //====================================================================//
-        // Remove All Arrays form Record             
-        unset($record['context']);
-        unset($record['extra']);
-        unset($record['http_server']);
-        unset($record['http_post']);
-        unset($record['http_get']); 
+        // Remove All Arrays form Record
+        unset($record['context'], $record['extra'], $record['http_server'], $record['http_post'], $record['http_get']);
         
         //====================================================================//
-        // Normalize Record             
+        // Normalize Record
         return parent::normalize($record);
     }
         
-    
     /**
      * Formats a log record to Html.
      *
-     * @param  array  $record A record to format
+     * @param  array $record A record to format
+     *
      * @return string The formatted record
      */
     public function getHtml(array $record): string
@@ -44,49 +56,46 @@ class NormalizerFormatter extends HtmlFormatter
         $output = $this->addTitle($record['level_name'], $record['level']);
         $output .= '<table cellspacing="1" width="100%" class="monolog-output">';
         $output .= $this->addRow('Message', (string) $record['message']);
-        $output .= $this->addRow('Time', $record['datetime']->format($this->dateFormat));        
+        $output .= $this->addRow('Time', $record['datetime']->format($this->dateFormat));
         $output .= $this->addRow('Channel', $record['channel']);
         if ($record['context']) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['context'] as $key => $value) {
-                $embeddedTable .= $this->addRow($key, $this->convertToString($value));
-            }
-            $embeddedTable .= '</table>';
-            $output .= $this->addRow('Context', $embeddedTable, false);
+            $output .= $this->getRowHtml($record['context']);
         }
         if ($record['extra']) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['extra'] as $key => $value) {
-                $embeddedTable .= $this->addRow($key, $this->convertToString($value));
-            }
-            $embeddedTable .= '</table>';
-            $output .= $this->addRow('Extra', $embeddedTable, false);
+            $output .= $this->getRowHtml($record['extra']);
         }
         if ($record['http_server']) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['http_server'] as $key => $value) {
-                $embeddedTable .= $this->addRow($key, $this->convertToString($value));
-            }
-            $embeddedTable .= '</table>';
-            $output .= $this->addRow('$_SERVER', $embeddedTable, false);
+            $output .= $this->getRowHtml($record['http_server']);
         }
         if ($record['http_post']) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['http_post'] as $key => $value) {
-                $embeddedTable .= $this->addRow($key, $this->convertToString($value));
-            }
-            $embeddedTable .= '</table>';
-            $output .= $this->addRow('$_POST', $embeddedTable, false);
+            $output .= $this->getRowHtml($record['http_post']);
         }
         if ($record['http_get']) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['http_get'] as $key => $value) {
-                $embeddedTable .= $this->addRow($key, $this->convertToString($value));
-            }
-            $embeddedTable .= '</table>';
-            $output .= $this->addRow('$_GET', $embeddedTable, false);
+            $output .= $this->getRowHtml($record['http_get']);
         }
+
         return $output.'</table>';
+    }
+    
+    /**
+     * Formats a log record to Html.
+     *
+     * @param  array $record A record to format
+     *
+     * @return string The formatted record
+     */
+    protected function getRowHtml(array $record): string
+    {
+        $output = null;
+        
+        $embeddedTable = '<table cellspacing="1" width="100%">';
+        foreach ($record as $key => $value) {
+            $embeddedTable .= $this->addRow($key, $this->convertToString($value));
+        }
+        $embeddedTable .= '</table>';
+        $output .= $this->addRow('Context', $embeddedTable, false);
+        
+        return $output;
     }
     
 //    /**
@@ -99,5 +108,5 @@ class NormalizerFormatter extends HtmlFormatter
 //    protected function addRow($th, $td = ' ', $escapeTd = true)
 //    {
 //        return parent::addRow($th, $td, false);
-//    }    
+//    }
 }

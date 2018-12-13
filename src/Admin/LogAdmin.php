@@ -1,12 +1,16 @@
 <?php
 
 /*
- * This file is part of the Splash Sync project.
+ *  This file is part of SplashSync Project.
  *
- * (c) Bernard Paquier <pro@bernard-paquier.fr>
+ *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace Splash\SonataAdminMonologBundle\Admin;
@@ -16,7 +20,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -38,10 +41,10 @@ class LogAdmin extends Admin
      *
      * @var array
      */
-    protected $datagridValues = [
+    protected $datagridValues = array(
         '_sort_order' => 'DESC',
         '_sort_by' => 'datetime',
-    ];
+    );
 
     /**
      * {@inheritdoc}
@@ -92,23 +95,23 @@ class LogAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('datetime', null, array('label' => 'log.results.datetime'))
-            ->add('level_name', 'actions', [
+            ->add('level_name', 'actions', array(
                 'label' => 'log.search.level',
-                'actions' => [
-                    'status' => [
+                'actions' => array(
+                    'status' => array(
                         'template' => '@SplashSonataAdminMonolog/Admin/list__level_view.html.twig',
-                    ],
-                ],
-            ])
+                    ),
+                ),
+            ))
             ->add('channel')
-            ->add('similarCount', 'actions', [
+            ->add('similarCount', 'actions', array(
                 'label' => 'log.show.similar',
-                'actions' => [
-                    'status' => [
+                'actions' => array(
+                    'status' => array(
                         'template' => '@SplashSonataAdminMonolog/Admin/list__similar_view.html.twig',
-                    ],
-                ],
-            ])
+                    ),
+                ),
+            ))
 
             ->addIdentifier('message', null, array('label' => 'log.results.message'))
         ;
