@@ -34,8 +34,8 @@ parameters:
     git_dir:        .
     bin_dir:        "vendor/bin"
     ascii:
-        failed:     "./vendor/splash/phpcore/Resources/grumphp/grumphp-grumpy.txt"
-        succeeded:  "./vendor/splash/phpcore/Resources/grumphp/grumphp-happy.txt"
+        failed:     "./src/Resources/grumphp/grumphp-grumpy.txt"
+        succeeded:  "./src/Resources/grumphp/grumphp-happy.txt"
     process_timeout: 180
         
     #############################################        
