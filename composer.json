@@ -25,11 +25,24 @@
         }
     ],
     
+    "autoload": {
+        "psr-4": {
+            "Splash\\SonataAdminMonologBundle\\": "src/"
+        }
+    },
+    
     "require": {
         "php":                                      "^7.0",
-        "symfony/monolog-bundle":                   "*",
+        "monolog/monolog":                          "~1.24",
         "doctrine/doctrine-bundle":                 ">=1.6",
         "sonata-project/admin-bundle":              ">=3.0"
+    },
+    
+    "autoload-dev": {
+        "psr-4": {
+            "Splash\\SonataAdminMonologBundle\\Tests\\": "tests/"
+        },
+        "classmap": [ "tests/Kernel.php" ]
     },
     
     "require-dev": {
@@ -38,7 +51,6 @@
         "symfony/phpunit-bridge":                       "*",
         
         "sonata-project/user-bundle":                   ">3.0",
-        "symfony/profiler-pack":                        "*",
         "symfony/console":                              "*",        
         "symfony/var-dumper":                           "*", 
         
@@ -73,18 +85,6 @@
             "*": "dist"
         },
         "sort-packages": true
-    },
-    
-    "autoload": {
-        "psr-4": {
-            "Splash\\SonataAdminMonologBundle\\": "src/"
-        }
-    },
-    
-    "autoload-dev": {
-        "psr-4": {
-            "Splash\\SonataAdminMonologBundle\\Tests\\": "tests/"
-        }
     }
     
 }

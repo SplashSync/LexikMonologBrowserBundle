@@ -1,3 +1,13 @@
+SonataAdaminMonologBundle
+=========================
+
+This Bundle is inspired from ![LexikMonologBrowserBundle](https://github.com/lexik/LexikMonologBrowserBundle), 
+it provides a Doctrine DBAL handler for Monolog and Sonata Admin.
+
+!! Wip !! Work In Progress
+==========================
+This Bundle is still unstable... coding in process. 
+
 LexikMonologBrowserBundle
 =========================
 
