@@ -4,32 +4,30 @@ SonataAdaminMonologBundle
 This Bundle is inspired from ![LexikMonologBrowserBundle](https://github.com/lexik/LexikMonologBrowserBundle), 
 it provides a Doctrine DBAL handler for Monolog and Sonata Admin.
 
-!! Wip !! Work In Progress
-==========================
-This Bundle is still unstable... coding in process. 
-
-LexikMonologBrowserBundle
+SonataAdminMonologBundle
 =========================
 
 [![Build Status](https://secure.travis-ci.org/lexik/LexikMonologBrowserBundle.png)](http://travis-ci.org/lexik/LexikMonologBrowserBundle)
 [![Latest Stable Version](https://poser.pugx.org/lexik/monolog-browser-bundle/v/stable)](https://packagist.org/packages/lexik/monolog-browser-bundle)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73/mini.png)](https://insight.sensiolabs.com/projects/d73bade1-4158-4085-aab8-1042d3704a73)
 
 This Bundle is deprecated
 =========================
 
-This Symfony2 bundle provides a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) and a web UI to display log entries. You can list, filter and paginate logs as you can see on the screenshot bellow:
+This Symfony bundle provides a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) 
+Web UI to display log entries is intégrated to Sonata Admin UI. 
 
-![Log entries listing](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/list.jpg)
-![Log entry show](https://github.com/lexik/LexikMonologBrowserBundle/raw/master/Resources/screen/show.jpg)
+You can list, filter and paginate logs as you can see on the screenshot bellow:
 
-As this bundle query your database on each raised log, it's relevant for small and medium projects, but if you have billion of logs consider using a specific log server like [sentry](http://getsentry.com/), [airbrake](https://airbrake.io/), etc.
+![Log entries listing](https://github.com/SplashSync/SonataAdminMonologBundle/raw/master/src/Resources/screen/list.png)
+![Log entry show](https://github.com/SplashSync/SonataAdminMonologBundle/raw/master/src/Resources/screen/show.png)
+
+As this bundle query your database on each raised log, it's relevant for small and medium projects, but if you have billion of logs consider using a specific log server.
 
 Requirements:
 ------------
 
 * Symfony 3.4+ | 4.0+ | 4.2+
-* KnpLabs/KnpPaginatorBundle
+* Sonata-Project/AdminBundle
 
 Installation
 ------------
@@ -59,74 +57,8 @@ public function registerBundles()
 }
 ```
 
-Configuration
+Basic Configuration
 -------------
-
-First of all, you need to configure the Doctrine DBAL connection to use in the handler. You have 2 ways to do that:
-
-**By using an existing Doctrine connection:**
-
-Note: we set the `logging` and `profiling` option to false to avoid DI circular reference.
-
-``` yaml
-# app/config/config.yml
-doctrine:
-    dbal:
-        connections:
-            default:
-                ...
-            monolog:
-                driver:    pdo_sqlite
-                dbname:    monolog
-                path:      %kernel.root_dir%/cache/monolog2.db
-                charset:   UTF8
-                logging:   false
-                profiling: false
-
-lexik_monolog_browser:
-    doctrine:
-        connection_name: monolog
-```
-
-**By creating a custom Doctrine connection for the bundle:**
-
-``` yaml
-# app/config/config.yml
-lexik_monolog_browser:
-    doctrine:
-        connection:
-            driver:      pdo_sqlite
-            driverClass: ~
-            pdo:         ~
-            dbname:      monolog
-            host:        localhost
-            port:        ~
-            user:        root
-            password:    ~
-            charset:     UTF8
-            path:        %kernel.root_dir%/db/monolog.db # The filesystem path to the database file for SQLite
-            memory:      ~                               # True if the SQLite database should be in-memory (non-persistent)
-            unix_socket: ~                               # The unix socket to use for MySQL
-```
-
-Please refer to the [Doctrine DBAL connection configuration](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#configuration) for more details.
-
-Optionally you can override the schema table name (`monolog_entries` by default):
-
-``` yaml
-# app/config/config.yml
-lexik_monolog_browser:
-    doctrine:
-        table_name: monolog_entries
-```
-
-Now your database is configured, you can generate the schema for your log entry table by running the following command:
-
-```
-./app/console lexik:monolog-browser:schema-create
-# you should see as result:
-# Created table monolog_entries for Doctrine Monolog connection
-```
 
 Then, you can configure Monolog to use the Doctrine DBAL handler:
 
@@ -148,10 +80,73 @@ monolog:
             action_level: warning
             channels:     deprecation
             handler:      lexik_monolog_browser
-        lexik_monolog_browser:
+        database_handler:
             type:         service
-            id:           lexik_monolog_browser.handler.doctrine_dbal
+            id:           splash.sonata.admin.monolog.handler
+            channels:     ["!event"]
 ```
+
+
+Advanced Configuration
+-------------
+
+If you don't want to use default Doctrien Entity Manager, you need to configure the Doctrine DBAL connection to use in the handler. 
+
+You have 2 ways to do that:
+
+**By using an existing Doctrine connection:**
+
+Note: we set the `logging` and `profiling` option to false to avoid DI circular reference.
+
+``` yaml
+# app/config/config.yml
+doctrine:
+    dbal:
+        connections:
+            default:
+                ...
+            monolog:
+                driver:    pdo_sqlite
+                dbname:    monolog
+                path:      %kernel.root_dir%/cache/monolog2.db
+                charset:   UTF8
+                logging:   false
+                profiling: false
+
+splash_sonata_admin_monolog:
+    doctrine:
+        connection_name: monolog
+```
+
+**By creating a custom Doctrine connection for the bundle:**
+
+``` yaml
+# app/config/config.yml
+splash_sonata_admin_monolog:
+    doctrine:
+        connection:
+            driver:      pdo_sqlite
+            driverClass: ~
+            pdo:         ~
+            dbname:      monolog
+            host:        localhost
+            port:        ~
+            user:        root
+            password:    ~
+            charset:     UTF8
+            path:        %kernel.root_dir%/db/monolog.db # The filesystem path to the database file for SQLite
+            memory:      ~                               # True if the SQLite database should be in-memory (non-persistent)
+            unix_socket: ~                               # The unix socket to use for MySQL
+```
+
+Please refer to the [Doctrine DBAL connection configuration](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#configuration) for more details.
+
+Now your database is configured, you can generate the schema for your log entry table by running the following command:
+
+```
+php bin/console doctrine:schema:update --force
+```
+
 
 Now you have enabled and configured the handler, you migth want to display log entries, just import the routing file:
 
@@ -173,19 +168,6 @@ framework:
     translator: ~
 ```
 
-Overriding default layout
--------------------------
-
-You can override the default layout of the bundle by using the `base_layout` option:
-
-``` yaml
-# app/config/config.yml
-lexik_monolog_browser:
-    base_layout: "LexikMonologBrowserBundle::layout.html.twig"
-```
-
-or quite simply with the Symfony way by create a template on `app/Resources/LexikMonologBrowserBundle/views/layout.html.twig`.
-
 Updating the bundle
 -------------------
 
@@ -199,9 +181,3 @@ You can execute the command below to visualize SQL diff and execute schema updat
 ./app/console lexik:monolog-browser:schema-update
 ```
 
-ToDo
-----
-
-* configure Processors to push into the Handler
-* abstract handler and connector for Doctrine and browse another like Elasticsearh
-* write Tests
