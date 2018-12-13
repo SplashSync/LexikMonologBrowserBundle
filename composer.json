@@ -47,8 +47,8 @@
     
     "require-dev": {
         "symfony/symfony":                              ">3.4",
-        "symfony/monolog-bundle":                       ">3.4",
-        "symfony/phpunit-bridge":                       ">3.4",
+        "symfony/monolog-bundle":                       "*",
+        "symfony/phpunit-bridge":                       "*",
         
         "sonata-project/user-bundle":                   ">3.0",
         "symfony/console":                              "*",        

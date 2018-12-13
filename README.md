@@ -28,7 +28,7 @@ As this bundle query your database on each raised log, it's relevant for small a
 Requirements:
 ------------
 
-* Symfony 2.1+
+* Symfony 3.4+ | 4.0+ | 4.2+
 * KnpLabs/KnpPaginatorBundle
 
 Installation
@@ -40,21 +40,20 @@ Installation with composer:
     ...
     "require": {
         ...
-        "lexik/monolog-browser-bundle": "~1.0",
+        "splash/sonata-admin-monolog-bundle": "@stable",
         ...
     },
     ...
 ```
 
-Next, be sure to enable these bundles in your `app/AppKernel.php` file:
+Next, be sure to enable these bundles in your `Kernel.php` file:
 
 ``` php
 public function registerBundles()
 {
     return array(
-        // ...
-        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-        new Lexik\Bundle\MonologBrowserBundle\LexikMonologBrowserBundle(),
+        // SPLASH SONATA ADMIN MONOLOG BUNDLE
+        new new Splash\SonataAdminMonologBundle\SplashSonataAdminMonologBundle(),
         // ...
     );
 }
