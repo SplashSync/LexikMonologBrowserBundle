@@ -1,0 +1,15 @@
+{% import "@SplashSonataAdminMonolog/utils.html.twig" as utils %}
+
+<ul>
+    {% for val in value %}
+        <li>
+            {{ val.datetime | date("Y-m-d H:i:s") }}
+            &nbsp;
+            <a href="{{ admin.generateUrl('show', { "id": val.id }) }}">
+                {{ utils.render_level_label(val.level, val.levelName) }}
+                &nbsp;
+                {{ val.message | truncate(50) }} 
+            </a>
+        </li>
+    {% endfor %}
+</ul>

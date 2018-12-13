@@ -1,0 +1,6 @@
+{% import "@SplashSonataAdminMonolog/utils.html.twig" as utils %}
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field %}
+    {{ utils.render_level_label(object.level, object.levelName) }}
+{% endblock %}

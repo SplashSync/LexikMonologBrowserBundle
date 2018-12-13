@@ -1,0 +1,5 @@
+{% import "@SplashSonataAdminMonolog/utils.html.twig" as utils %}
+
+{% if object is defined %}
+    {{ utils.render_level_label(object.level, object.levelName, { 'class': 'pull-right' }) }}
+{% endif%}

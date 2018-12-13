@@ -1,0 +1,5 @@
+{% import "@SplashSonataAdminMonolog/utils.html.twig" as utils %}
+
+{% if object is defined %}
+    {{ utils.render_count_badge(object.similarCount) }}
+{% endif%}

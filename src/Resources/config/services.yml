@@ -1,0 +1,29 @@
+services:
+
+    ################################################################################
+    # Monolog Logs Handler
+    splash.sonata.admin.monolog.handler:
+        class: Splash\SonataAdminMonologBundle\Handler\DoctrineDBALHandler
+        arguments:
+            - "@splash.sonata.admin.monolog.connection"
+            - "%splash_sonata_admin_monolog.level%"
+
+    ################################################################################
+    # Monolog Logs Hydrator Service
+    splash.sonata.admin.monolog.hydrator:
+        class: Splash\SonataAdminMonologBundle\Event\LogHydrator
+        tags:
+            - { name: doctrine.event_listener, event: postLoad  }
+            
+    ################################################################################
+    # Database Logs Sonata Admin Service
+    splash.sonata.admin.monolog:
+        class: Splash\SonataAdminMonologBundle\Admin\LogAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "System", label: "Monolog", icon: "<span class='fa fa-server'></span>" }
+        arguments:
+            - ~
+            - Splash\SonataAdminMonologBundle\Entity\Log
+            - ~
+        calls:        
+            - [ "setTranslationDomain", ['SplashSonataAdminMonologBundle'] ]   
