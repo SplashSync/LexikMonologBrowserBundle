@@ -21,6 +21,14 @@ class T100HandlerTest extends AbstractTestClass
         //====================================================================//
         // Connect to Homepage
         $this->client->request('GET', '/');
+        if (PHP_VERSION_ID < 72000) {
+            $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+            //====================================================================//
+            // Verify
+            $this->verifyFirst(404, "CRITICAL", "request");
+            
+            return;
+        }
         $this->assertEquals(500, $this->client->getResponse()->getStatusCode());
         //====================================================================//
         // Verify
