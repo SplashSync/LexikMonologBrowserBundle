@@ -25,7 +25,7 @@ class T100HandlerTest extends AbstractTestClass
             $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
             //====================================================================//
             // Verify
-            $this->verifyFirst(404, "CRITICAL", "request");
+            $this->verifyFirst(400, "CRITICAL", "request");
             
             return;
         }
