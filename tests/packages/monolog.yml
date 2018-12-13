@@ -1,0 +1,7 @@
+monolog:
+    handlers:
+
+        database:
+            type:         service
+            id:           splash.sonata.admin.monolog.handler
+            channels:     ["!event"]            
