@@ -5,6 +5,9 @@
  *
  *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
  *
+ *  @author Splash Sync <contact@splashsync.com>
+ *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
