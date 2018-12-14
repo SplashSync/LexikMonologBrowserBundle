@@ -7,3 +7,8 @@ parameters:
             - ArrayObject
     symfony:
             container_xml_path: %currentWorkingDirectory%/var/cache/dev/testContainer.xml 
+
+    ignoreErrors:
+            - '#Parameter [a-zA-Z0-9\#\\_]+ \$command of class [a-zA-Z0-9\\_]+Process constructor expects array#'
+
+

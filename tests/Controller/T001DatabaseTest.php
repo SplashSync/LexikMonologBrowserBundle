@@ -17,10 +17,12 @@ class T001DatabaseTest extends AbstractTestClass
     {
         //====================================================================//
         // Create Process
-        $process = Process::fromShellCommandline("php tests/console doctrine:schema:drop --force --env=test");
+        $process = new Process("php tests/console doctrine:schema:drop --force --env=test");
+        // TODO => SF 4.2
+        // $process = Process::fromShellCommandline("php tests/console doctrine:schema:drop --force --env=test");
         //====================================================================//
         // Clean Working Dir
-        $workingDirectory   =   $process->getWorkingDirectory();
+        $workingDirectory   =   (string) $process->getWorkingDirectory();
         if (strrpos($workingDirectory, "/app") == (strlen($workingDirectory) - 4)) {
             $process->setWorkingDirectory(substr($workingDirectory, 0, strlen($workingDirectory) - 4));
         }
@@ -44,10 +46,12 @@ class T001DatabaseTest extends AbstractTestClass
     {
         //====================================================================//
         // Create Process
-        $process = Process::fromShellCommandline("php tests/console doctrine:schema:update --force --env=test");
+        $process = new Process("php tests/console doctrine:schema:update --force --env=test");
+        // TODO => SF 4.2
+        // $process = Process::fromShellCommandline("php tests/console doctrine:schema:update --force --env=test");
         //====================================================================//
         // Clean Working Dir
-        $workingDirectory   =   $process->getWorkingDirectory();
+        $workingDirectory   =   (string) $process->getWorkingDirectory();
         if (strrpos($workingDirectory, "/app") == (strlen($workingDirectory) - 4)) {
             $process->setWorkingDirectory(substr($workingDirectory, 0, strlen($workingDirectory) - 4));
         }

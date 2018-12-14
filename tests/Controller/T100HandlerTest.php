@@ -21,6 +21,7 @@ class T100HandlerTest extends AbstractTestClass
         //====================================================================//
         // Connect to Homepage
         $this->client->request('GET', '/');
+        $this->assertNotEmpty($this->client->getResponse());
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         //====================================================================//
         // Verify
@@ -37,10 +38,12 @@ class T100HandlerTest extends AbstractTestClass
         $this->cleanup();
         //====================================================================//
         // Create Process
-        $process = Process::fromShellCommandline("php tests/console this:is:wrong --env=test");
+        $process = new Process("php tests/console this:is:wrong --env=test");
+        // TODO => SF 4.2
+        // $process = Process::fromShellCommandline("php tests/console this:is:wrong --env=test");
         //====================================================================//
         // Clean Working Dir
-        $workingDirectory   =   $process->getWorkingDirectory();
+        $workingDirectory   =   (string) $process->getWorkingDirectory();
         if (strrpos($workingDirectory, "/app") == (strlen($workingDirectory) - 4)) {
             $process->setWorkingDirectory(substr($workingDirectory, 0, strlen($workingDirectory) - 4));
         }
