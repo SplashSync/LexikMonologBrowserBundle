@@ -1,20 +1,11 @@
 SonataAdaminMonologBundle
 =========================
 
-This Bundle is inspired from ![LexikMonologBrowserBundle](https://github.com/lexik/LexikMonologBrowserBundle), 
-it provides a Doctrine DBAL handler for Monolog and Sonata Admin.
-
-SonataAdminMonologBundle
-=========================
-
-[![Build Status](https://secure.travis-ci.org/lexik/LexikMonologBrowserBundle.png)](http://travis-ci.org/lexik/LexikMonologBrowserBundle)
-[![Latest Stable Version](https://poser.pugx.org/lexik/monolog-browser-bundle/v/stable)](https://packagist.org/packages/lexik/monolog-browser-bundle)
-
-This Bundle is deprecated
-=========================
+[![Build Status](https://travis-ci.org/SplashSync/Php-Bundle.svg?branch=master)](https://travis-ci.org/SplashSync/Php-Bundle)
+[![Latest Stable Version](https://poser.pugx.org/splash/sonata-admin-monolog-bundle/v/stable)](https://packagist.org/packages/splash/sonata-admin-monolog-bundle)
 
 This Symfony bundle provides a [Doctrine DBAL](https://github.com/doctrine/dbal) handler for [Monolog](https://github.com/Seldaek/monolog) 
-Web UI to display log entries is intégrated to Sonata Admin UI. 
+Web UI to display log entries is integrated to Sonata Admin UI. 
 
 You can list, filter and paginate logs as you can see on the screenshot bellow:
 
@@ -22,6 +13,8 @@ You can list, filter and paginate logs as you can see on the screenshot bellow:
 ![Log entry show](https://github.com/SplashSync/SonataAdminMonologBundle/raw/master/src/Resources/screen/show.png)
 
 As this bundle query your database on each raised log, it's relevant for small and medium projects, but if you have billion of logs consider using a specific log server.
+
+This Bundle is inspired from [LexikMonologBrowserBundle](https://github.com/lexik/LexikMonologBrowserBundle)
 
 Requirements:
 ------------
@@ -63,23 +56,9 @@ Basic Configuration
 Then, you can configure Monolog to use the Doctrine DBAL handler:
 
 ``` yaml
-# app/config/config_prod.yml # or any env
+# app/config/config.yml # or any env
 monolog:
     handlers:
-        main:
-            type:         fingers_crossed # or buffer
-            level:        error
-            handler:      lexik_monolog_browser
-        app:
-            type:         buffer
-            action_level: info
-            channels:     app
-            handler:      lexik_monolog_browser
-        deprecation:
-            type:         buffer
-            action_level: warning
-            channels:     deprecation
-            handler:      lexik_monolog_browser
         database_handler:
             type:         service
             id:           splash.sonata.admin.monolog.handler
@@ -90,7 +69,7 @@ monolog:
 Advanced Configuration
 -------------
 
-If you don't want to use default Doctrien Entity Manager, you need to configure the Doctrine DBAL connection to use in the handler. 
+If you don't want to use default Doctrine Entity Manager, you need to configure the Doctrine DBAL connection to use in the handler. 
 
 You have 2 ways to do that:
 
@@ -147,16 +126,6 @@ Now your database is configured, you can generate the schema for your log entry 
 php bin/console doctrine:schema:update --force
 ```
 
-
-Now you have enabled and configured the handler, you migth want to display log entries, just import the routing file:
-
-``` yaml
-# app/config/routing.yml
-lexik_monolog_browser:
-    resource: "@LexikMonologBrowserBundle/Resources/config/routing.xml"
-    prefix:   /admin/monolog
-```
-
 Translations
 ------------
 
@@ -168,16 +137,10 @@ framework:
     translator: ~
 ```
 
-Updating the bundle
--------------------
+Contributing
+------------
 
-At each bundle updates, be careful to potential schema updates and because Monolog entries table is disconnected from the rest of your Doctrine entities or models, you have to manualy update the schema.
+Any Pull requests are welcome! 
 
-The bundle comes with a `schema-update` command but in some cases, like on renaming columns, the default behavior is not perfect and you may have a look to Doctrine Migrations (you can read an example on PR #2).
-
-You can execute the command below to visualize SQL diff and execute schema updates:
-
-```
-./app/console lexik:monolog-browser:schema-update
-```
+This module is part of [SplashSync](http://www.splashsync.com) project.
 
