@@ -21,8 +21,9 @@ class T100HandlerTest extends AbstractTestClass
         //====================================================================//
         // Connect to Homepage
         $this->client->request('GET', '/');
-        $this->assertNotEmpty($this->client->getResponse());
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $response = $this->client->getResponse();
+        $this->assertNotEmpty($response);
+        $this->assertEquals(404, $response->getStatusCode());
         //====================================================================//
         // Verify
         $this->verifyFirst(400, "ERROR", "request");
