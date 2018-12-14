@@ -6,4 +6,4 @@ parameters:
     universalObjectCratesClasses:
             - ArrayObject
     symfony:
-            container_xml_path: %currentWorkingDirectory%/var/cache/dev/testsKernelDevDebugContainer.xml 
+            container_xml_path: %currentWorkingDirectory%/var/cache/dev/testContainer.xml 

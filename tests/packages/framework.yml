@@ -5,7 +5,6 @@ framework:
         resource:   "%kernel.root_dir%/routing.yml"
     templating:
         engines: ['twig']  
-    form:           ~
-    session:        ~    
+    form:           ~ 
     test: ~
 

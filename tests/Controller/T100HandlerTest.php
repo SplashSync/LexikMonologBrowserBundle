@@ -10,34 +10,22 @@ use Symfony\Component\Process\Process;
  */
 class T100HandlerTest extends AbstractTestClass
 {
-//    /**
-//     * Verify Log handler from Controller
-//     */
-//    public function testLogFromController()
-//    {
-//        //====================================================================//
-//        // Delete All Logs
-//        $this->cleanup();
-//        //====================================================================//
-//        // Connect to Homepage
-//        $this->client->request('GET', '/');
-////        if (PHP_VERSION_ID < 72000) {
-////            $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
-////            //====================================================================//
-////            // Verify
-////            $this->verifyFirst(400, "CRITICAL", "request");
-////            
-////            return;
-////        }
-//        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
-//        //====================================================================//
-//        // Verify
-//        $this->verifyFirst(400, "CRITICAL", "request");
-////        $this->assertEquals(500, $this->client->getResponse()->getStatusCode());
-////        //====================================================================//
-////        // Verify
-////        $this->verifyFirst(500, "CRITICAL", "request");
-//    }
+    /**
+     * Verify Log handler from Controller
+     */
+    public function testLogFromController()
+    {
+        //====================================================================//
+        // Delete All Logs
+        $this->cleanup();
+        //====================================================================//
+        // Connect to Homepage
+        $this->client->request('GET', '/');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        //====================================================================//
+        // Verify
+        $this->verifyFirst(400, "ERROR", "request");
+    }
     
     /**
      * Verify Log handler from Symfony Console
