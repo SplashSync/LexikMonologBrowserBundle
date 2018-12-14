@@ -29,42 +29,42 @@ abstract class AbstractBaseLog
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=250, nullable=false)
+     * @ORM\Column(name="channel", type="string", length=250, nullable=false)
      */
     protected $channel;
     
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(name="level", type="integer", nullable=false)
      */
     protected $level;
     
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=250, nullable=false)
+     * @ORM\Column(name="level_name", type="string", length=250, nullable=false)
      */
     protected $levelName;
     
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(name="message", type="text", nullable=false)
      */
     protected $message;
     
     /**
      * @var DateTime
      *
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(name="datetime", type="datetime", nullable=false)
      */
     protected $datetime;
     
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="formated", type="text", nullable=true)
      */
     protected $formated;
 
