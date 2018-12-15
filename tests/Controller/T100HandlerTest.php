@@ -23,7 +23,7 @@ class T100HandlerTest extends AbstractTestClass
         $this->client->request('GET', '/ThisUrlIsWrong');
         $response = $this->client->getResponse();
         $this->assertNotEmpty($response);
-        if ($response) {
+        if (!empty($response)) {
             $this->assertEquals(404, $response->getStatusCode());
         }
         //====================================================================//
