@@ -1,27 +1,37 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) 2015-2019 Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\SonataAdminMonologBundle\Tests\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-
+use Splash\SonataAdminMonologBundle\Entity\Log;
+use Splash\SonataAdminMonologBundle\Repository\LogRepository;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-use Splash\SonataAdminMonologBundle\Repository\LogRepository;
-use Splash\SonataAdminMonologBundle\Entity\Log;
 
 /**
  * Base Class for Bundle Tests
  */
 abstract class AbstractTestClass extends WebTestCase
 {
-
     /**
      * @var Client
      */
     protected $client;
-    
+
     /**
      * @var EntityManagerInterface
      */
@@ -31,17 +41,16 @@ abstract class AbstractTestClass extends WebTestCase
      * @var LogRepository
      */
     protected $repository;
-    
+
     /**
      * @var Logger
      */
     protected $logger;
-    
-    
+
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = static::createClient();
         $container = $this->client->getContainer();
@@ -51,18 +60,18 @@ abstract class AbstractTestClass extends WebTestCase
         //====================================================================//
         // Link to entity manager Services
         /** @var EntityManagerInterface $entityManager */
-        $entityManager  = $container->get('doctrine')->getManager();
-        $this->entityManager  = $entityManager;
+        $entityManager = $container->get('doctrine')->getManager();
+        $this->entityManager = $entityManager;
         //====================================================================//
         // Link to Logs Repository
         /** @var LogRepository $repository */
-        $repository  = $container->get('doctrine')->getRepository("SplashSonataAdminMonologBundle:Log");
-        $this->repository  = $repository;
+        $repository = $container->get('doctrine')->getRepository("SplashSonataAdminMonologBundle:Log");
+        $this->repository = $repository;
         //====================================================================//
         // Connect to Logger
-        $this->logger =   $container->get('monolog.logger.phpunit');
+        $this->logger = $container->get('monolog.logger.phpunit');
     }
-    
+
     /**
      * @abstract    Dummy Test
      */
@@ -70,7 +79,7 @@ abstract class AbstractTestClass extends WebTestCase
     {
         $this->assertTrue(true);
     }
-    
+
     /**
      * Delete All Logs Entities
      */
@@ -99,11 +108,10 @@ abstract class AbstractTestClass extends WebTestCase
         // Verify
         $this->assertNotEmpty($log);
         $this->verify($log, $level, $name, $channel);
-        
+
         return $log;
     }
-    
-    
+
     /**
      * Verify a Log item
      *
@@ -116,7 +124,7 @@ abstract class AbstractTestClass extends WebTestCase
     {
         $this->assertNotEmpty($log->getDateTime());
         $this->assertNotEmpty($log->getFormated());
-        
+
         if (!is_null($level)) {
             $this->assertSame($level, $log->getLevel());
         }
