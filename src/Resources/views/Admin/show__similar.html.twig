@@ -8,7 +8,7 @@
             <a href="{{ admin.generateUrl('show', { "id": val.id }) }}">
                 {{ utils.render_level_label(val.level, val.levelName) }}
                 &nbsp;
-                {{ val.message | truncate(50) }} 
+                {{ val.message | u.truncate(50) }}
             </a>
         </li>
     {% endfor %}
