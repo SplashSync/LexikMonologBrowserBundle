@@ -22,6 +22,7 @@ variables:
   MYSQL_DATABASE:         symfony
   MYSQL_ROOT_PASSWORD:    symfony
   COMPOSER_MEMORY_LIMIT:  -1
+  SYMFONY_DEPRECATIONS_HELPER: disabled
 
 ################################################################
 # Defined Pipeline Stages
