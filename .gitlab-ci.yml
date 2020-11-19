@@ -18,6 +18,9 @@
 ################################################################
 # Set any variables we need
 variables:
+  # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+  MYSQL_DATABASE:         symfony
+  MYSQL_ROOT_PASSWORD:    symfony
   COMPOSER_MEMORY_LIMIT:  -1
 
 ################################################################
@@ -33,6 +36,8 @@ stages:
     stage:      tests
     tags:       ['Dedicated']
     retry:      2
+    services:
+      - mysql:5.7
     ################################################################################
     # Before Script
     before_script:
