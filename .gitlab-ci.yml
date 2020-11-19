@@ -37,7 +37,9 @@ stages:
     tags:       ['Dedicated']
     retry:      2
     services:
-      - mysql:5.7
+      - name: mysql:5.7
+        # To Disable ONLY_FULL_GROUP_BY option on SQL Server
+        command: [ '--sql_mode=NO_ENGINE_SUBSTITUTION' ]
     ################################################################################
     # Before Script
     before_script:
