@@ -3,10 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
- *
- *  @author Splash Sync <contact@splashsync.com>
- *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,7 +25,7 @@ class NormalizerFormatter extends HtmlFormatter
     /**
      * Formats a log record.
      *
-     * @param  array $record A record to format
+     * @param array $record A record to format
      *
      * @return string The formatted record
      */
@@ -37,20 +34,20 @@ class NormalizerFormatter extends HtmlFormatter
         //====================================================================//
         // Format Record to Html
         $record['formated'] = $this->getHtml($record);
-        
+
         //====================================================================//
         // Remove All Arrays form Record
         unset($record['context'], $record['extra'], $record['http_server'], $record['http_post'], $record['http_get']);
-        
+
         //====================================================================//
         // Normalize Record
         return parent::normalize($record);
     }
-        
+
     /**
      * Formats a log record to Html.
      *
-     * @param  array $record A record to format
+     * @param array $record A record to format
      *
      * @return string The formatted record
      */
@@ -79,28 +76,28 @@ class NormalizerFormatter extends HtmlFormatter
 
         return $output.'</table>';
     }
-    
+
     /**
      * Formats a log record to Html.
      *
-     * @param  array $record A record to format
+     * @param array $record A record to format
      *
      * @return string The formatted record
      */
     protected function getRowHtml(array $record): string
     {
         $output = null;
-        
+
         $embeddedTable = '<table cellspacing="1" width="100%">';
         foreach ($record as $key => $value) {
             $embeddedTable .= $this->addRow($key, $this->convertToString($value));
         }
         $embeddedTable .= '</table>';
         $output .= $this->addRow('Context', $embeddedTable, false);
-        
+
         return $output;
     }
-    
+
 //    /**
 //     * Creates an HTML table row
 //     *

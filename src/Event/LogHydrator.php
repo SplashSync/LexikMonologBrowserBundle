@@ -3,10 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
- *
- *  @author Splash Sync <contact@splashsync.com>
- *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,7 +17,6 @@ namespace Splash\SonataAdminMonologBundle\Event;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Splash\SonataAdminMonologBundle\Entity\Log;
-use Splash\SonataAdminMonologBundle\Model\AbstractBaseLog;
 use Splash\SonataAdminMonologBundle\Repository\LogRepository;
 
 /**
@@ -40,7 +36,7 @@ class LogHydrator
      *
      * @param LifecycleEventArgs $eventArgs
      */
-    public function postLoad(LifecycleEventArgs $eventArgs)
+    public function postLoad(LifecycleEventArgs $eventArgs): void
     {
         //====================================================================//
         // Filter On Logs Entities
@@ -51,7 +47,7 @@ class LogHydrator
         // Connect to repository
         if (empty($this->repository)) {
             /** @var LogRepository $respository */
-            $respository = $eventArgs->getEntityManager()->getRepository('SplashSonataAdminMonologBundle:Log');
+            $respository = $eventArgs->getEntityManager()->getRepository(Log::class);
             $this->repository = $respository;
         }
         //====================================================================//

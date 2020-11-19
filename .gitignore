@@ -50,3 +50,4 @@
 /tests/config/parameters.yml
 /var/
 /public/
+/composer.lock

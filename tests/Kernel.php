@@ -3,7 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -48,8 +48,10 @@ class Kernel extends BaseKernel
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
 
-            if (('dev' === $this->getEnvironment()) && class_exists('\\Symfony\\Bundle\\WebServerBundle\\WebServerBundle')) {
-                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+            if ('dev' === $this->getEnvironment()) {
+                if (class_exists('\\Symfony\\Bundle\\WebServerBundle\\WebServerBundle')) {
+                    $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+                }
             }
         }
 
@@ -81,7 +83,7 @@ class Kernel extends BaseKernel
      *
      * @param LoaderInterface $loader
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load($this->getRootDir().'/config.yml');
     }

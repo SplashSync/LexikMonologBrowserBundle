@@ -3,10 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
- *
- *  @author Splash Sync <contact@splashsync.com>
- *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -89,13 +86,13 @@ class LogRepository extends EntityRepository
 
         return $normalizedChannels;
     }
-    
+
     /**
      * Returns a array of channels entries used by logs.
      *
-     * @return array
+     * @return void
      */
-    public function removeAll()
+    public function removeAll(): void
     {
         foreach ($this->findAll() as $log) {
             $this->getEntityManager()->remove($log);

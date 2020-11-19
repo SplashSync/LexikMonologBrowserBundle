@@ -36,6 +36,7 @@
         "monolog/monolog":                          "~1.24",
         "doctrine/doctrine-bundle":                 "~1.6",
         "sonata-project/admin-bundle":              "~3.0",
+        "sonata-project/doctrine-orm-admin-bundle": "~3.0",
         "twig/twig":                                "^2.0"
     },
     
@@ -47,7 +48,7 @@
     },
     
     "require-dev": {
-        "symfony/symfony":                              "~3.4 | ~4.0",
+        "symfony/symfony":                              "~4.4",
         "symfony/monolog-bundle":                       "*",
         "symfony/phpunit-bridge":                       "*",
         

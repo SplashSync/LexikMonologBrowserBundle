@@ -15,13 +15,14 @@
 #
 ################################################################################
 
-#############################################        
+#############################################
 # Override Config. for Php Core Module
 parameters:
-    bundle_dir:     "."   
-    mode:           "core"
-    
-#############################################        
-# Import Config. from Generic Bundle
+    mode:                   "splashsync"
+    # Php Stan
+    stan-config:            "%core_dir%/phpstan/sf.badpixxel.neon"
+
+#############################################
+# Import Generic + Splash Console Configs
 imports:
-    - { resource: "./src/Resources/grumphp/grumphp.base.yml" }
+    - { resource: "./vendor/badpixxel/php-sdk/grumphp/generic.yml" }

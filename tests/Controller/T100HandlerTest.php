@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\SonataAdminMonologBundle\Tests\Controller;
 
 use Monolog\Logger;
@@ -13,7 +26,7 @@ class T100HandlerTest extends AbstractTestClass
     /**
      * Verify Log handler from Controller
      */
-    public function testLogFromController()
+    public function testLogFromController(): void
     {
         //====================================================================//
         // Delete All Logs
@@ -30,23 +43,21 @@ class T100HandlerTest extends AbstractTestClass
         // Verify
         $this->verifyFirst(400, "ERROR", "request");
     }
-    
+
     /**
      * Verify Log handler from Symfony Console
      */
-    public function testLogFromConsole()
+    public function testLogFromConsole(): void
     {
         //====================================================================//
         // Delete All Logs
         $this->cleanup();
         //====================================================================//
         // Create Process
-        $process = new Process("php tests/console this:is:wrong --env=test");
-        // TODO => SF 4.2
-        // $process = Process::fromShellCommandline("php tests/console this:is:wrong --env=test");
+        $process = Process::fromShellCommandline("php tests/console this:is:wrong --env=test");
         //====================================================================//
         // Clean Working Dir
-        $workingDirectory   =   (string) $process->getWorkingDirectory();
+        $workingDirectory = (string) $process->getWorkingDirectory();
         if (strrpos($workingDirectory, "/app") == (strlen($workingDirectory) - 4)) {
             $process->setWorkingDirectory(substr($workingDirectory, 0, strlen($workingDirectory) - 4));
         }
@@ -54,12 +65,12 @@ class T100HandlerTest extends AbstractTestClass
         // Run Process
         $process->run();
         $this->assertFalse($process->isSuccessful());
-        
+
         //====================================================================//
         // Verify
         $this->verifyFirst(Logger::ERROR, "ERROR", "console");
     }
-    
+
     /**
      * Verify Log handler from Logger
      *
@@ -67,7 +78,7 @@ class T100HandlerTest extends AbstractTestClass
      *
      * @dataProvider loggerTypesDataProvider
      */
-    public function testLogFromLogger(string $levelName)
+    public function testLogFromLogger(string $levelName): void
     {
         //====================================================================//
         // Delete All Logs
@@ -81,18 +92,18 @@ class T100HandlerTest extends AbstractTestClass
         //====================================================================//
         // Add Log Item via Logger
         $this->logger->addRecord($level, "This is a test ".$levelName);
-        
+
         //====================================================================//
         // Verify
         $this->verifyFirst($level, $levelName, "app");
     }
-    
+
     /**
      * Data Provider for Logger
      *
      * @return array
      */
-    public function loggerTypesDataProvider()
+    public function loggerTypesDataProvider(): array
     {
         return array(
             array("NOTICE"),

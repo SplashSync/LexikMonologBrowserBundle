@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\SonataAdminMonologBundle\Tests\Controller;
 
 use Monolog\Logger;
@@ -12,7 +25,7 @@ class T101RepositoryTest extends AbstractTestClass
     /**
      * Verify Logs Repository Levels mapper
      */
-    public function testLogsLevels()
+    public function testLogsLevels(): void
     {
         //====================================================================//
         // Delete All Logs
@@ -24,11 +37,11 @@ class T101RepositoryTest extends AbstractTestClass
         $this->logger->addRecord(Logger::CRITICAL, "This is a test !");
         $this->logger->addRecord(Logger::ALERT, "This is a test !");
         $this->logger->addRecord(Logger::NOTICE, "This is a test !");
-        
+
         //====================================================================//
         // Load Levels
         $levels = $this->repository->getLogsLevels();
-        
+
         //====================================================================//
         // Verify
         $this->assertSame(array(

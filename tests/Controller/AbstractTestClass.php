@@ -3,7 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2019 Splash Sync  <www.splashsync.com>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -65,7 +65,7 @@ abstract class AbstractTestClass extends WebTestCase
         //====================================================================//
         // Link to Logs Repository
         /** @var LogRepository $repository */
-        $repository = $container->get('doctrine')->getRepository("SplashSonataAdminMonologBundle:Log");
+        $repository = $container->get('doctrine')->getRepository(Log::class);
         $this->repository = $repository;
         //====================================================================//
         // Connect to Logger
@@ -73,9 +73,9 @@ abstract class AbstractTestClass extends WebTestCase
     }
 
     /**
-     * @abstract    Dummy Test
+     * Dummy Test
      */
-    public function testPhpUnitIsWorking()
+    public function testPhpUnitIsWorking(): void
     {
         $this->assertTrue(true);
     }
@@ -83,7 +83,7 @@ abstract class AbstractTestClass extends WebTestCase
     /**
      * Delete All Logs Entities
      */
-    public function cleanup()
+    public function cleanup(): void
     {
         $this->repository->removeAll();
         $this->assertEmpty($this->repository->findAll());
@@ -120,7 +120,7 @@ abstract class AbstractTestClass extends WebTestCase
      * @param string $name
      * @param string $channel
      */
-    public function verify(Log $log, int $level = null, string $name = null, string $channel = null)
+    public function verify(Log $log, int $level = null, string $name = null, string $channel = null): void
     {
         $this->assertNotEmpty($log->getDateTime());
         $this->assertNotEmpty($log->getFormated());

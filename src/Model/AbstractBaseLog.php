@@ -3,10 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
- *
- *  @author Splash Sync <contact@splashsync.com>
- *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,35 +29,35 @@ abstract class AbstractBaseLog
      * @ORM\Column(name="channel", type="string", length=250, nullable=false)
      */
     protected $channel;
-    
+
     /**
      * @var int
      *
      * @ORM\Column(name="level", type="integer", nullable=false)
      */
     protected $level;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="level_name", type="string", length=250, nullable=false)
      */
     protected $levelName;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="message", type="text", nullable=false)
      */
     protected $message;
-    
+
     /**
      * @var DateTime
      *
      * @ORM\Column(name="datetime", type="datetime", nullable=false)
      */
     protected $datetime;
-    
+
     /**
      * @var string
      *
@@ -128,9 +125,10 @@ abstract class AbstractBaseLog
     {
         return $this->formated;
     }
-    
+
     /**
      * Set List of Similar Logs
+     *
      * @param array $similar
      *
      * @return $this
@@ -141,18 +139,20 @@ abstract class AbstractBaseLog
 
         return $this;
     }
-    
+
     /**
      * Get List of Similar Logs
+     *
      * @return array
      */
     public function getSimilar() : array
     {
         return $this->similar;
     }
-    
+
     /**
      * Get Count of Similar Logs
+     *
      * @return int
      */
     public function getSimilarCount() : int

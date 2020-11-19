@@ -3,10 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
- *
- *  @author Splash Sync <contact@splashsync.com>
- *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,6 +21,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
+use Splash\SonataAdminMonologBundle\Repository\LogRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -52,7 +51,7 @@ class LogAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function configureRoutes(RouteCollection $collection)
+    public function configureRoutes(RouteCollection $collection): void
     {
         $collection->remove('create');
         $collection->remove('edit');
@@ -61,7 +60,7 @@ class LogAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    protected function configureShowFields(ShowMapper $showMapper)
+    protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
             ->with('Message', array('class' => 'col-xs-12'))
@@ -94,7 +93,7 @@ class LogAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    protected function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
             ->addIdentifier('datetime', null, array('label' => 'log.results.datetime'))
@@ -123,11 +122,14 @@ class LogAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
+        /** @var ModelManager $modelManager */
+        $modelManager = $this->getModelManager();
         //====================================================================//
         // Connect To Repository
-        $logsRepository = $this->getModelManager()
+        /** @var LogRepository $logsRepository */
+        $logsRepository = $modelManager
             ->getEntityManager($this->getClass())
             ->getRepository($this->getClass());
 
@@ -184,7 +186,7 @@ class LogAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $formMapper): void
     {
     }
 }

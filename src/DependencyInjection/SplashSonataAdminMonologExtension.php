@@ -3,10 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2018 Splash Sync  <www.splashsync.com>
- *
- *  @author Splash Sync <contact@splashsync.com>
- *  @author Jeremy Barthe <j.barthe@lexik.fr>
+ *  Copyright (C) 2015-2020 Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,7 +29,7 @@ class SplashSonataAdminMonologExtension extends Extension
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -41,13 +38,19 @@ class SplashSonataAdminMonologExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('splash_sonata_admin_monolog.level', $config['level']);
-        
+
         if (isset($config['doctrine']['connection_name'])) {
-            $container->setAlias('splash.sonata.admin.monolog.connection', sprintf('doctrine.dbal.%s_connection', $config['doctrine']['connection_name']));
+            $container->setAlias(
+                'splash.sonata.admin.monolog.connection',
+                sprintf('doctrine.dbal.%s_connection', $config['doctrine']['connection_name'])
+            );
         }
 
         if (isset($config['doctrine']['connection'])) {
-            $connectionDefinition = new Definition('Doctrine\DBAL\Connection', array($config['doctrine']['connection']));
+            $connectionDefinition = new Definition(
+                'Doctrine\DBAL\Connection',
+                array($config['doctrine']['connection'])
+            );
             $connectionDefinition->setFactory(array('Doctrine\DBAL\DriverManager', 'getConnection'));
             $container->setDefinition('splash.sonata.admin.monolog.connection', $connectionDefinition);
         }
